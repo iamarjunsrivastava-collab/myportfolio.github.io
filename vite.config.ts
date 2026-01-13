@@ -15,6 +15,6 @@ export default defineConfig(({ mode }) => ({
       "@": path.resolve(__dirname, "./src"),
     },
   },
-  base: "/my-portfolio/",
-  // GitHub Actions deployment
+  base: "/",
+  // GitHub Pages deployment for .github.io repository
 }));
