@@ -1,0 +1,249 @@
+/* ===================================================================
+   TAILWIND IMPORTS
+   =================================================================== */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ===================================================================
+   FONT IMPORTS
+   =================================================================== */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+/* ===================================================================
+   CSS CUSTOM PROPERTIES (DESIGN TOKENS)
+   =================================================================== */
+@layer base {
+  :root {
+    /* Base Colors */
+    --background: 222 47% 6%;
+    --foreground: 210 40% 98%;
+
+    /* Card Colors */
+    --card: 222 47% 8%;
+    --card-foreground: 210 40% 98%;
+
+    /* Popover Colors */
+    --popover: 222 47% 8%;
+    --popover-foreground: 210 40% 98%;
+
+    /* Primary Colors */
+    --primary: 187 85% 53%;
+    --primary-foreground: 222 47% 6%;
+
+    /* Secondary Colors */
+    --secondary: 222 30% 14%;
+    --secondary-foreground: 210 40% 98%;
+
+    /* Muted Colors */
+    --muted: 222 30% 12%;
+    --muted-foreground: 215 20% 55%;
+
+    /* Accent Colors */
+    --accent: 187 85% 53%;
+    --accent-foreground: 222 47% 6%;
+
+    /* Destructive Colors */
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 210 40% 98%;
+
+    /* Form & Border Colors */
+    --border: 222 30% 18%;
+    --input: 222 30% 18%;
+    --ring: 187 85% 53%;
+
+    /* Border Radius */
+    --radius: 0.75rem;
+
+    /* Custom Gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(187 85% 53%) 0%, hsl(217 91% 60%) 100%);
+    --gradient-subtle: linear-gradient(135deg, hsl(222 47% 8%) 0%, hsl(222 47% 12%) 100%);
+    --gradient-radial: radial-gradient(ellipse at top, hsl(222 47% 12%) 0%, hsl(222 47% 6%) 70%);
+
+    /* Custom Shadows */
+    --shadow-glow: 0 0 60px -15px hsl(187 85% 53% / 0.3);
+    --shadow-card: 0 4px 24px -8px hsl(0 0% 0% / 0.4);
+  }
+
+  .dark {
+    --background: 222 47% 6%;
+    --foreground: 210 40% 98%;
+  }
+}
+
+/* ===================================================================
+   BASE STYLES
+   =================================================================== */
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 4rem;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+    font-family: 'Inter', system-ui, sans-serif;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+  }
+
+  ::selection {
+    @apply bg-primary/30 text-foreground;
+  }
+
+  /* Fix for mobile viewport height issues */
+  .min-h-screen {
+    min-height: 100vh;
+    min-height: 100dvh;
+  }
+
+  /* Ensure images are responsive */
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+
+  /* Fix for button focus states */
+  button:focus-visible,
+  a:focus-visible {
+    outline: 2px solid hsl(var(--primary));
+    outline-offset: 2px;
+  }
+}
+
+/* ===================================================================
+   COMPONENT STYLES
+   =================================================================== */
+@layer components {
+  /* Text Effects */
+  .gradient-text {
+    @apply bg-clip-text text-transparent;
+    background-image: var(--gradient-primary);
+  }
+
+  /* Border Effects */
+  .gradient-border {
+    position: relative;
+  }
+
+  .gradient-border::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    padding: 1px;
+    border-radius: inherit;
+    background: var(--gradient-primary);
+    -webkit-mask: 
+      linear-gradient(#fff 0 0) content-box, 
+      linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask: 
+      linear-gradient(#fff 0 0) content-box, 
+      linear-gradient(#fff 0 0);
+    mask-composite: exclude;
+    pointer-events: none;
+  }
+
+  /* Glass Morphism Effect */
+  .glass {
+    @apply bg-card/50 backdrop-blur-xl border border-border/50;
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+  }
+
+  /* Layout Utilities */
+  .section-padding {
+    @apply py-16 md:py-24 lg:py-32;
+  }
+
+  /* Container improvements */
+  .container {
+    @apply mx-auto px-4 sm:px-6 lg:px-8;
+    max-width: 1200px;
+  }
+
+  /* Responsive text sizing */
+  .text-responsive-xl {
+    @apply text-2xl sm:text-3xl md:text-4xl lg:text-5xl;
+  }
+
+  .text-responsive-lg {
+    @apply text-xl sm:text-2xl md:text-3xl;
+  }
+
+  /* Button improvements */
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 px-6 py-3 rounded-lg bg-primary text-primary-foreground font-medium hover:bg-primary/90 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-primary/50;
+  }
+
+  .btn-secondary {
+    @apply inline-flex items-center justify-center gap-2 px-6 py-3 rounded-lg border border-border hover:bg-secondary transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-primary/50;
+  }
+}
+
+/* ===================================================================
+   ANIMATION UTILITIES
+   =================================================================== */
+@layer utilities {
+  /* Gradient Animation */
+  .animate-gradient {
+    background-size: 200% 200%;
+    animation: gradient-shift 8s ease infinite;
+  }
+
+  /* Float Animation */
+  .animate-float {
+    animation: float 6s ease-in-out infinite;
+  }
+
+  /* Fade In Animation */
+  .animate-fade-in {
+    animation: fade-in 0.6s ease-out forwards;
+  }
+
+  /* Scale In Animation */
+  .animate-scale-in {
+    animation: scale-in 0.4s ease-out forwards;
+  }
+}
+
+/* ===================================================================
+   KEYFRAME ANIMATIONS
+   =================================================================== */
+@keyframes gradient-shift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes fade-in {
+  from { 
+    opacity: 0; 
+    transform: translateY(20px); 
+  }
+  to { 
+    opacity: 1; 
+    transform: translateY(0px); 
+  }
+}
+
+@keyframes scale-in {
+  from { 
+    opacity: 0; 
+    transform: scale(0.95); 
+  }
+  to { 
+    opacity: 1; 
+    transform: scale(1); 
+  }
+}
