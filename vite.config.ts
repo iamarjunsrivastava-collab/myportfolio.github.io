@@ -16,4 +16,5 @@ export default defineConfig(({ mode }) => ({
     },
   },
   base: "/my-portfolio/",
+  // GitHub Actions deployment
 }));
