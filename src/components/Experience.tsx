@@ -1,12 +1,11 @@
 import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
-import { useRef, useState } from "react";
+import { useRef } from "react";
 import { Briefcase, MapPin, Calendar, Building } from "lucide-react";
 
 const Experience = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
-  const [selectedExperience, setSelectedExperience] = useState<string | null>(null);
 
   const experiences = [
     {
@@ -38,10 +37,6 @@ const Experience = () => {
       ],
     },
   ];
-
-  const handleExperienceClick = (title: string) => {
-    setSelectedExperience(selectedExperience === title ? null : title);
-  };
 
   return (
     <section id="experience" className="section-padding relative">
@@ -84,19 +79,14 @@ const Experience = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={isInView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.5, delay: 0.2 + index * 0.1 }}
-                className="group relative cursor-pointer"
-                onClick={() => handleExperienceClick(exp.title)}
+                className="group relative"
               >
                 <div className="absolute -left-[45px] top-6 w-6 h-6 rounded-full bg-primary border-4 border-background group-hover:scale-110 transition-transform duration-300" />
                 
                 {/* Gradient background effect */}
                 <div className={`absolute inset-0 bg-gradient-to-r ${exp.color} rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500`} />
                 
-                <div className={`relative h-full p-6 rounded-2xl border transition-all duration-300 hover:shadow-xl hover:shadow-primary/10
-                  ${selectedExperience === exp.title 
-                    ? 'bg-primary/5 border-primary/50 shadow-lg shadow-primary/20' 
-                    : 'bg-card border-border hover:border-primary/50'
-                  }`}
+                <div className={`relative h-full p-6 rounded-2xl border transition-all duration-300 hover:shadow-xl hover:shadow-primary/10 bg-card border-border hover:border-primary/50`}
                 >
                   <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3 mb-4">
                     <div className="flex-1">
@@ -109,9 +99,7 @@ const Experience = () => {
                           {exp.period}
                         </div>
                       </div>
-                      <h4 className={`text-lg font-semibold mb-2 transition-colors
-                        ${selectedExperience === exp.title ? 'text-primary' : 'group-hover:text-primary'}
-                      `}>
+                      <h4 className="text-lg font-semibold mb-2 transition-colors group-hover:text-primary">
                         {exp.title}
                       </h4>
                       <div className="flex items-center gap-4 text-sm text-muted-foreground mb-4">
@@ -151,30 +139,6 @@ const Experience = () => {
             ))}
           </div>
         </div>
-
-        {/* Selected experience indicator */}
-        {selectedExperience && (
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 20 }}
-            className="mt-8 text-center"
-          >
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20">
-              <span className="text-sm text-primary font-medium">Selected:</span>
-              <span className="text-sm font-semibold">{selectedExperience}</span>
-              <button
-                onClick={(e) => {
-                  e.stopPropagation();
-                  setSelectedExperience(null);
-                }}
-                className="ml-2 w-4 h-4 rounded-full bg-primary/20 hover:bg-primary/30 flex items-center justify-center text-xs text-primary transition-colors"
-              >
-                ×
-              </button>
-            </div>
-          </motion.div>
-        )}
       </div>
     </section>
   );

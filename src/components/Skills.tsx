@@ -1,12 +1,11 @@
 import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
-import { useRef, useState } from "react";
+import { useRef } from "react";
 import { Code, Database, BarChart3, Cloud, Wrench, Users } from "lucide-react";
 
 const Skills = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
-  const [selectedSkill, setSelectedSkill] = useState<string | null>(null);
 
   const skillCategories = [
     {
@@ -46,10 +45,6 @@ const Skills = () => {
       color: "from-teal-500/20 to-cyan-500/20",
     },
   ];
-
-  const handleSkillClick = (skill: string) => {
-    setSelectedSkill(selectedSkill === skill ? null : skill);
-  };
 
   return (
     <section id="skills" className="section-padding relative">
@@ -99,7 +94,7 @@ const Skills = () => {
                   
                   <div className="flex flex-wrap gap-2 flex-1">
                     {category.skills.map((skill, skillIndex) => (
-                      <motion.button
+                      <motion.div
                         key={skill}
                         initial={{ opacity: 0, scale: 0.9 }}
                         animate={isInView ? { opacity: 1, scale: 1 } : {}}
@@ -107,16 +102,10 @@ const Skills = () => {
                           duration: 0.3,
                           delay: 0.2 + categoryIndex * 0.1 + skillIndex * 0.05,
                         }}
-                        onClick={() => handleSkillClick(skill)}
-                        className={`px-3 py-2 text-sm rounded-lg font-medium transition-all duration-200 cursor-pointer h-fit
-                          ${selectedSkill === skill 
-                            ? 'bg-primary text-primary-foreground shadow-lg shadow-primary/25' 
-                            : 'bg-secondary text-foreground hover:bg-primary/20 hover:text-primary'
-                          }
-                          focus:outline-none focus:ring-2 focus:ring-primary/50`}
+                        className="px-3 py-2 text-sm rounded-lg font-medium transition-all duration-200 h-fit bg-secondary text-foreground hover:bg-primary/20 hover:text-primary"
                       >
                         {skill}
-                      </motion.button>
+                      </motion.div>
                     ))}
                   </div>
                 </div>
@@ -124,27 +113,6 @@ const Skills = () => {
             );
           })}
         </div>
-
-        {/* Selected skill indicator */}
-        {selectedSkill && (
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 20 }}
-            className="mt-8 text-center"
-          >
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20">
-              <span className="text-sm text-primary font-medium">Selected:</span>
-              <span className="text-sm font-semibold">{selectedSkill}</span>
-              <button
-                onClick={() => setSelectedSkill(null)}
-                className="ml-2 w-4 h-4 rounded-full bg-primary/20 hover:bg-primary/30 flex items-center justify-center text-xs text-primary transition-colors"
-              >
-                ×
-              </button>
-            </div>
-          </motion.div>
-        )}
       </div>
     </section>
   );
