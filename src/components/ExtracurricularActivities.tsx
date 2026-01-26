@@ -9,6 +9,14 @@ const ExtracurricularActivities = () => {
 
   const activities = [
     {
+      title: "Campus Mantri | GeeksforGeeks",
+      organization: "GeeksforGeeks",
+      description: "Appointed as Campus Mantri (Official Representative) of GeeksforGeeks for United University Prayagraj. Serve as the primary point of contact between GeeksforGeeks and the student community, promoting tech initiatives, organizing campus-level events and activities, and acting as a brand ambassador to increase student engagement with educational resources and platforms.",
+      type: "Leadership",
+      date: "2026",
+      icon: Users,
+    },
+    {
       title: "Campus Ambassador | Entrepreneurship Development Cell (eDC), IIT Delhi",
       organization: "IIT Delhi",
       description: "Selected as Campus Ambassador (2025–26) representing Entrepreneurship Development Cell, IIT Delhi. Promoted entrepreneurship initiatives and events through campus and digital outreach, strengthening leadership and communication skills.",
